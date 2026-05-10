@@ -1,0 +1,20 @@
+# Try /test-db again.
+
+# Now:
+# 👉 it returns empty OR errors (because RLS blocks it)
+
+# Good. That means:
+
+# security is active
+# your setup is real
+# What you achieved (don’t underestimate this)
+
+# You now have:
+
+# running FastAPI
+# Supabase connected
+# DB working
+# RLS enforced
+
+# This is the hardest foundation step. Most people quit here.
+
