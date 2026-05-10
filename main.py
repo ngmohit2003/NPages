@@ -1,3 +1,71 @@
+from fastapi import FastAPI
+from pydantic import BaseModel
+from db import supabase
+
+app = FastAPI()
+
+
+@app.get("/")
+def root():
+    return {"message": "API running"}
+
+@app.get("/test-db")
+
+def test_db():
+    res = supabase.table("notes").select("*").execute()
+    return res.data
+#  tz 1.
+
+
+
+
+class AuthData(BaseModel):
+    email:str
+    password:str
+
+@app.post("/signup")
+def signup(data: AuthData):
+    res = supabase.auth.sign_up({
+        "email": data.email,
+        "password": data.password
+    })
+    return res
+
+@app.post("/login")
+def login(data: AuthData):
+    res = supabase.auth.sign_in_with_password({
+        "email": data.email,
+        "password": data.password
+    })
+    return{
+        "access_token": res.session.access_token,
+        "user": res.user
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # from fastapi import FastAPI     #imports the FastAPI class from the fastapi  library, need this to create web app instance
 
 # app = FastAPI()     # creates an instance of fastapi app,  app is the main object that handles trouting, requests, responses etc,  very imp
@@ -11,28 +79,4 @@
 # def test_db():
 #     res = supabase.table("notes").select("*").execute()
 #     return res.data
-
-
-
-
-
-from fastapi import FastAPI
-from db import supabase
-
-app = FastAPI()
-
-@app.get("/")
-def root():
-    return {"message": "API running"}
-
-
-
-@app.get("/test-db")
-
-def test_db():
-    res = supabase.table("notes").select("*").execute()
-    return res.data
-
-#  tz 1-
-
 
