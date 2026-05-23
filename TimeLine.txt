@@ -111,7 +111,7 @@ Now your DB is actually secure..............................
 
 
 
-#  tl 3
+                            #  tl 3
 What just happened (important)
 
 This is your first REAL secure flow:
@@ -128,7 +128,6 @@ storage
 search
 edge functions
 markdown parsing
-
 Not yet.
 
 Your next milestone
@@ -138,3 +137,40 @@ Once this works:
   prove RLS works
 
   Then you’re officially past beginner Supabase stage.
+  You now have:
+- FastAPI working
+- Supabase connected
+- Auth working
+- JWT working
+- RLS working
+- Secure inserts working
+
+That already puts you ahead of most “I watched 47 backend tutorials” people.
+Now we stop building random endpoints and start building **actual architecture**.
+
+---
+
+# Your next phase
+
+## Goal now:
+
+> turn this into a proper scalable notes system
+
+NOT:
+
+- “just more CRUD”'
+
+
+
+                            #  tl-4
+Why this matters
+Because soon you’ll add:
+  search
+  storage
+  markdown
+  math parser
+  views
+  triggers
+
+And one-file backend becomes:
+ancient cursed scroll architecture
