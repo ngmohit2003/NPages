@@ -1,4 +1,4 @@
-#  tz 1
+#  tl 1
 supabase schema v1->
 CREATE TABLE notes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -28,9 +28,36 @@ CREATE TABLE notes (
 
 # This is the hardest foundation step. Most people quit here.
 
+faltu
+# from fastapi import FastAPI     #imports the FastAPI class from the fastapi  library, need this to create web app instance
+
+# app = FastAPI()     # creates an instance of fastapi app,  app is the main object that handles trouting, requests, responses etc,  very imp
+
+# @app.get("/")       #  its a decorator, tells fastapi hwen somemone send a GET req to /, run the func below.,   /=root url (localhost-http//localhost:8000),  GET= HTTP method to fetch data
+# def root():         #  defines the func that runs when / is accessed,  name doent matter can be anything
+#     return {"message": "API running"}       # returns a py dictionary, fastapi auto converts it to JSON
+# #WHAT HAPPENED--> 1. we run servers via uvicorn main:app --reload cmd,  2.someone hits GET,   3. fastapi routes it to root(),  4. function returns data,  5. fastapi sends it back as json
+
+# @app.get("/test-db")
+# def test_db():
+#     res = supabase.table("notes").select("*").execute()
+#     return res.data
 
 
-#  tz 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  tl 2
 ...
 Level 1 — Auth + First Real Secure Insert
 
@@ -79,3 +106,35 @@ FOR DELETE
 USING (auth.uid() = user_id);
 Now your DB is actually secure..............................
 
+
+
+
+
+
+#  tl 3
+What just happened (important)
+
+This is your first REAL secure flow:
+
+user logs in
+JWT identifies them
+RLS checks ownership
+DB stores user-specific data
+You are now building an actual backend system, not tutorial nonsense.
+
+
+DO NOT ADD YET
+storage
+search
+edge functions
+markdown parsing
+
+Not yet.
+
+Your next milestone
+Once this works:
+  create GET /notes
+  fetch only current user’s notes
+  prove RLS works
+
+  Then you’re officially past beginner Supabase stage.

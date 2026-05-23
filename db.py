@@ -4,10 +4,8 @@ from supabase import create_client      # imports create_client from supabase py
 from dotenv import load_dotenv      # imports load_dotenv from same package, lets pyton read vars from .env file
 
 load_dotenv()       # this loads the .env vars into the environment,  w/o this line .env file is nothing,   and with os.getenv we can access them
-
+#  tl 1.
 supabase = create_client(       #  creates a supabase client instance  and stores in supabase so u can reuse it everywhere
     os.getenv("SUPABASE_URL"),  # fetches ut project url from env
     os.getenv("SUPABASE_KEY")   # fetches the api key
 )
-
-#  tz 1
