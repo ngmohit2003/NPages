@@ -1,6 +1,10 @@
 from fastapi import APIRouter
-from models.schemas import AuthData
-from db.supabase_client import supabase
+from app.models.schemas import AuthData
+from app.db.supabase_client import supabase
+
+from fastapi.security import OAuth2PasswordBearer
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 #tl-4
 router = APIRouter()

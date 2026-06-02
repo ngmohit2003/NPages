@@ -174,3 +174,58 @@ Because soon you’ll add:
 
 And one-file backend becomes:
 ancient cursed scroll architecture
+
+
+IMPORTANT TEST
+
+Create:
+
+2 accounts
+
+Then:
+
+user A creates notes
+user B logs in
+user B should NOT see A notes
+
+If that works:
+👉 your auth + RLS system is officially correct.
+
+After that (next major milestone)
+
+We add:
+
+Markdown support
+Full-text search (tsvector)
+Search endpoint
+Triggers
+Auto-update search vectors
+
+THAT is where project becomes impressive.
+
+What NOT to do yet
+❌ React frontend
+❌ Edge functions
+❌ Microservices
+❌ Realtime
+❌ AI tagging
+
+You’re still building the foundation layer.
+
+Your immediate task
+
+Do these in order:
+
+Restructure project
+Add GET /notes
+Test with 2 users
+Verify RLS isolation
+
+Once done:
+say:
+
+“RLS fully verified”
+
+Then we move to:
+
+Full-text search + PostgreSQL triggers (real backend engineering starts there)
