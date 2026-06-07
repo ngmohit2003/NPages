@@ -19,11 +19,11 @@ app.include_router(notes_router)
 def root():
     return {"message": "API running"}
 
-@app.get("/test-db")
+# @app.get("/test-db")
 
-def test_db():
-    res = supabase.table("notes").select("*").execute()
-    return res.data
+# def test_db():
+#     res = supabase.table("notes").select("*").execute()
+#     return res.data
 
 
 
