@@ -1,196 +1,124 @@
-![Python](https://img.shields.io/badge/Python-3.11-blue)
+# N-Pages
 
-![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
+A developer-focused knowledge management platform built with **FastAPI**, **PostgreSQL**, and **Supabase**.
 
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
-
-![Supabase](https://img.shields.io/badge/Supabase-Auth%20%2B%20Storage-success)
-
-![Status](https://img.shields.io/badge/Status-Active%20Development-orange)
-
-![License](https://img.shields.io/badge/License-MIT-purple)
-
-
-
-# 🚀 N-Pages — Smart Multi-User Research Notes Platform
-
-> A backend-first knowledge management system for researchers, students, engineers, and technical professionals.
-
-N-Pages combines secure note management, mathematical computation, full-text search, and document storage into a scalable architecture built with FastAPI, PostgreSQL, and Supabase.
+N-Pages allows users to securely create, manage, search, and organize technical notes while supporting file attachments and enterprise-grade authorization through Row Level Security (RLS).
 
 ---
 
-## 🎯 Vision
+# Project Status
 
-Most note-taking applications focus on UI.
+**Current Version:** v0.4
 
-N-Pages focuses on:
+### Completed Modules
 
-* Knowledge storage
-* Mathematical reasoning
-* Searchability
-* Security
-* Scalability
+✅ Authentication
 
-The goal is to build a production-style SaaS backend demonstrating modern backend engineering practices.
+✅ User Authorization
+
+✅ Notes CRUD
+
+✅ Row Level Security (RLS)
+
+✅ File Upload System
+
+✅ File Management
+
+✅ Storage Integration
+
+✅ Secure Ownership Validation
 
 ---
 
-# Current Development Status
+# Project Vision
 
-| Module               | Status         |
-| -------------------- | -------------- |
-| FastAPI Backend      | ✅ Working      |
-| Supabase Integration | ✅ Working      |
-| Authentication       | ✅ Working      |
-| JWT Sessions         | ✅ Working      |
-| User Notes CRUD      | 🟡 In Progress |
-| RLS Security         | 🟡 Testing     |
-| Full Text Search     | ⏳ Planned      |
-| Storage Buckets      | ⏳ Planned      |
-| Markdown Rendering   | ⏳ Planned      |
-| LaTeX Rendering      | ⏳ Planned      |
-| Auto Tagging         | ⏳ Planned      |
-| Edge Functions       | ⏳ Planned      |
-| Math Engine          | ⏳ Planned      |
+N-Pages is designed as a production-style SaaS backend demonstrating modern backend engineering practices:
+
+* Authentication
+* Authorization
+* Secure Storage
+* REST APIs
+* Database Design
+* Search Systems
+* Multi-Tenant Architecture
+* Future AI-Powered Knowledge Retrieval
+
+The platform is targeted toward:
+
+* Researchers
+* Students
+* Engineers
+* Developers
+* Technical Professionals
+
+---
+
+# Technology Stack
+
+## Backend
+
+* FastAPI
+* Uvicorn
+* Python 3.12+
+
+## Database
+
+* PostgreSQL
+* Supabase PostgreSQL
+
+## Authentication
+
+* Supabase Auth
+* JWT Tokens
+
+## Storage
+
+* Supabase Storage
+
+## Security
+
+* PostgreSQL Row Level Security (RLS)
+* Ownership Validation
+* JWT Authentication
 
 ---
 
 # System Architecture
 
 ```text
-                    ┌───────────────┐
-                    │    Client     │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │    FastAPI    │
-                    └───────┬───────┘
-                            │
-      ┌─────────────────────┼─────────────────────┐
-      ▼                     ▼                     ▼
-
-┌──────────────┐   ┌──────────────┐   ┌──────────────┐
-│ Supabase Auth│   │ PostgreSQL   │   │   Storage    │
-│ + JWT        │   │ + RLS        │   │ + Buckets    │
-└──────────────┘   └──────────────┘   └──────────────┘
-                            │
-                            ▼
-                  ┌─────────────────┐
-                  │ Full Text Search│
-                  │ Triggers/Views  │
-                  └─────────────────┘
+┌─────────────────────┐
+│      Frontend       │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│      FastAPI        │
+│     REST APIs       │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────────────────┐
+│            Supabase             │
+├─────────────────────────────────┤
+│ Authentication (JWT)            │
+│ PostgreSQL Database             │
+│ Storage Buckets                 │
+└──────────┬──────────────────────┘
+           │
+           ▼
+┌─────────────────────┐
+│      PostgreSQL     │
+│   Notes & Metadata  │
+└─────────────────────┘
 ```
 
 ---
 
-# Core Features
+# Database Schema
 
-## Authentication
+## notes
 
-* User Registration
-* Login
-* JWT Session Management
-* Supabase Auth
-
----
-
-## Secure Multi-Tenant Notes
-
-Every note belongs to exactly one user.
-
-```sql
-auth.uid() = user_id
-```
-
-Implemented using PostgreSQL Row Level Security (RLS).
-
----
-
-## Research Notes
-
-Each note supports:
-
-* Markdown
-* LaTeX
-* References
-* Images
-* PDFs
-
-Example:
-
-```markdown
-# Bayesian Inference
-
-Bayes theorem:
-
-P(A|B)=P(B|A)P(A)/P(B)
-```
-
----
-
-## Full Text Search
-
-Powered by PostgreSQL:
-
-* tsvector
-* tsquery
-* GIN Indexes
-
-Example:
-
-```sql
-SELECT *
-FROM notes
-WHERE content_tsv @@ plainto_tsquery('postgres');
-```
-
----
-
-## Storage
-
-Supabase Storage Buckets:
-
-```text
-note-assets/
- ├── user-id/
- │   ├── note-id/
- │   │   ├── image.png
- │   │   ├── paper.pdf
-```
-
----
-
-## Mathematical Workspace
-
-Planned capabilities:
-
-* Expression Evaluation
-* Equation Solving
-* Simplification
-* Derivatives
-* Integrals
-
-Powered by SymPy.
-
-Example:
-
-```python
-simplify("(x+1)^2")
-```
-
-Result:
-
-```python
-x**2 + 2*x + 1
-```
-
----
-
-# Database Design
-
-## Notes
+Stores user-created notes.
 
 ```text
 notes
@@ -199,215 +127,351 @@ notes
 ├── user_id
 ├── title
 ├── content
-├── content_tsv
 ├── created_at
 └── updated_at
 ```
 
 ---
 
-## Attachments
+## note_files
+
+Stores metadata for uploaded files.
 
 ```text
-note_assets
+note_files
 │
 ├── id
 ├── note_id
-├── file_path
-└── file_type
+├── file_name
+├── file_url
+├── storage_path
+└── created_at
 ```
 
 ---
 
-## Tags
+# Storage Structure
+
+Files are stored inside Supabase Storage.
 
 ```text
-note_tags
+note-files/
 │
-├── id
-├── note_id
-└── tag
+├── user_id/
+│   ├── uuid-file-1.png
+│   ├── uuid-file-2.pdf
+│   └── uuid-file-3.jpg
+│
+└── user_id/
+    ├── uuid-file-4.png
+    └── uuid-file-5.pdf
 ```
 
----
-
-# Planned PostgreSQL Features
-
-## Triggers
-
-Automatic search-vector updates.
-
-## Views
-
-* Recent Notes
-* Most Referenced Notes
-
-## Functions
-
-Automatic note tagging.
-
-## Indexes
-
-GIN indexes for search performance.
+Each user receives an isolated folder.
 
 ---
 
-# Project Structure
+# Authentication Flow
 
 ```text
-N-Pages/
-
-├── app/
-│
-├── routes/
-│   ├── auth.py
-│   ├── notes.py
-│
-├── models/
-│   ├── schemas.py
-│
-├── db/
-│   ├── supabase_client.py
-│
-├── services/
-│
-├── utils/
-│
-├── tests/
-│
-└── main.py
-
-
-v2: 
-N-Pages/
-│
-├── app/
-│   ├── db/
-│   │   └── supabase_client.py
-│   │
-│   ├── models/
-│   │   └── schemas.py
-│   │
-│   ├── routes/
-│   │   ├── auth.py
-│   │   └── notes.py
-│   │
-│   ├── services/
-│   │   └── auth_service.py
-│   │
-│   ├── utils/
-│   │
-│   └── __init__.py
-│
-├── docs/
-│   ├── architecture/
-│   └── development-journal.md
-│
-├── tests/
-│
-├── main.py
-├── requirements.txt
-├── README.md
-├── CHANGELOG.md
-└── LICENSE
+User Login
+     │
+     ▼
+Supabase Auth
+     │
+     ▼
+JWT Token Issued
+     │
+     ▼
+Authorization Header
+     │
+     ▼
+Protected FastAPI Route
+     │
+     ▼
+User Validation
 ```
 
 ---
 
-# Tech Stack
+# Row Level Security (RLS)
 
-## Backend
+N-Pages uses PostgreSQL RLS to enforce ownership.
 
-* FastAPI
-* Python
+Users can:
 
-## Database
+* Read their own notes
+* Create their own notes
+* Update their own notes
+* Delete their own notes
 
-* PostgreSQL
-* Supabase
+Users cannot access records belonging to other users.
+
+---
+
+# Implemented API Endpoints
 
 ## Authentication
 
-* Supabase Auth
-* JWT
+### Login
 
-## Search
-
-* PostgreSQL Full Text Search
-
-## Storage
-
-* Supabase Storage
-
-## Mathematics
-
-* SymPy
-
-## Future Frontend
-
-* React
-* Next.js
+```http
+POST /login
+```
 
 ---
 
-# Engineering Goals
+## Notes
 
-This project is intentionally designed to demonstrate:
+### Create Note
 
-* API Design
-* Authentication
-* Authorization
-* Database Design
-* Search Systems
-* Storage Systems
-* PostgreSQL Internals
-* Event Driven Patterns
-* Scalable Architecture
+```http
+POST /notes
+```
+
+### Get All Notes
+
+```http
+GET /notes
+```
+
+### Get Single Note
+
+```http
+GET /notes/{note_id}
+```
+
+### Update Note
+
+```http
+PUT /notes/{note_id}
+```
+
+### Delete Note
+
+```http
+DELETE /notes/{note_id}
+```
 
 ---
 
-# Development Log
+## File Management
 
-## Phase 1
+### Upload File
 
-* [x] FastAPI Setup
-* [x] Supabase Integration
-* [x] Signup
-* [x] Login
-* [x] JWT Authentication
+```http
+POST /notes/{note_id}/upload
+```
+
+Features:
+
+* Ownership verification
+* UUID-based filenames
+* User-specific folders
+* Supabase Storage integration
+
+---
+
+### Get Note Files
+
+```http
+GET /notes/{note_id}/files
+```
+
+Returns all files attached to a note.
+
+---
+
+### Delete File
+
+```http
+DELETE /files/{file_id}
+```
+
+Removes:
+
+1. Storage object
+2. Database metadata
+
+---
+
+# File Upload Lifecycle
+
+```text
+User Uploads File
+         │
+         ▼
+Validate Note Ownership
+         │
+         ▼
+Generate UUID Filename
+         │
+         ▼
+Upload To Storage
+         │
+         ▼
+Generate Public URL
+         │
+         ▼
+Store Metadata
+         │
+         ▼
+Return Response
+```
+
+---
+
+# File Deletion Lifecycle
+
+```text
+Delete Request
+       │
+       ▼
+Verify Ownership
+       │
+       ▼
+Find Storage Path
+       │
+       ▼
+Delete Storage Object
+       │
+       ▼
+Delete Metadata Row
+       │
+       ▼
+Return Success
+```
+
+---
+
+# Security Features
+
+### Authentication
+
+* JWT-based authentication
+* Supabase Auth integration
+
+### Authorization
+
+* Ownership validation
+* Protected routes
+
+### Database Security
+
+* PostgreSQL RLS
+* User-level data isolation
+
+### Storage Security
+
+* User folder separation
+* Metadata ownership verification
+
+---
+
+# Current Project Capabilities
+
+### Notes
+
+* Create notes
+* Read notes
+* Update notes
+* Delete notes
+
+### Files
+
+* Upload images
+* Upload PDFs
+* Upload documents
+* List files
+* Delete files
+
+### Security
+
+* Multi-user support
+* Data isolation
+* Storage isolation
+
+---
+
+# Upcoming Features
 
 ## Phase 2
 
-* [ ] Complete Notes CRUD
-* [ ] Verify RLS
-* [ ] Storage Integration
+### Search
 
-## Phase 3
+* PostgreSQL Full Text Search
+* GIN Indexes
+* Keyword Search
 
-* [ ] Full Text Search
-* [ ] Triggers
-* [ ] Views
-* [ ] Functions
+### Performance
 
-## Phase 4
+* Pagination
+* Sorting
+* Optimized Queries
 
-* [ ] Math Engine
-* [ ] Auto Tagging
-* [ ] Edge Functions
+### Metadata
+
+* Automatic updated_at triggers
+* Soft Deletes
 
 ---
 
-# Why This Project Exists
+## Phase 3
 
-Most portfolio projects stop at CRUD.
+### Organization
 
-N-Pages explores what happens after CRUD:
+* Tags
+* Categories
+* Favorites
+* Pinned Notes
 
-* Secure multi-user systems
-* Search infrastructure
-* PostgreSQL automation
-* Knowledge management
-* Mathematical computation
-* Scalable backend architecture
+### Security
 
-Built in public. Iterated continuously.
+* Signed URLs
+* Private Storage
+
+---
+
+## Phase 4
+
+### AI Features
+
+* Embeddings
+* pgvector
+* Semantic Search
+* AI Knowledge Retrieval
+
+Example:
+
+```text
+Query:
+"Show me notes about authentication"
+
+Instead of:
+
+"Find notes containing authentication"
+```
+
+---
+
+# Development Goals
+
+This project is being built to demonstrate:
+
+* Backend Engineering
+* Database Design
+* Secure Multi-Tenant Systems
+* SaaS Architecture
+* API Development
+* PostgreSQL Expertise
+* Supabase Integration
+* Search Engineering
+* Future AI Integration
+
+---
+
+# Author
+
+Mohit Nigote
+
+Tech Developer | Backend Engineering | FastAPI | PostgreSQL | Supabase
