@@ -18,6 +18,17 @@ from app.services.notes_service import (
 
 )
 
+from fastapi import UploadFile, File
+import uuid
+
+
+
+
+
+
+
+
+
 
 
 security = HTTPBearer()
@@ -321,3 +332,70 @@ def delete_note(
     # return {
     #     "deleted": res.data
     # }
+
+
+
+
+
+
+# Create File-Upload Route for pdf/png/img...
+@router.post("/notes/{note_id}/upload")
+def upload_file(
+    note_id: str,
+    file: UploadFile = File(...),
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+    
+    token = credentials.credentials
+
+    user = supabase.auth.get_user(token)
+
+    note = supabase.table("notes") \
+        .select("*") \
+        .eq("id", note_id) \
+        .eq("user_id", user.user.id) \
+        .execute()
+
+    if not note.data:
+        raise HTTPException(
+            status_code=404,
+            detail="Note not found"
+        )
+
+    file_extension = file.filename.split(".")[-1]
+
+    unique_filename = (
+        f"{user.user.id}/"
+        f"{uuid.uuid4()}.{file_extension}"
+    )
+
+    file_content = file.file.read()
+
+    # supabase.storage \          #this section is not sending the content type.
+    #     .from_("note-files") \
+    #     .upload(
+    #         unique_filename,
+    #         file_content
+    #     )
+    
+    supabase.storage \
+    .from_("note-files") \
+    .upload(
+        unique_filename,
+        file_content,
+        file_options={
+            "content-type": file.content_type
+        }
+    )
+
+    file_url = supabase.storage \
+        .from_("note-files") \
+        .get_public_url(unique_filename)
+
+    res = supabase.table("note_files").insert({
+        "note_id": note_id,
+        "file_name": file.filename,
+        "file_url": file_url
+    }).execute()
+
+    return res.data

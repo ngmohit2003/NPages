@@ -8,11 +8,13 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from app.routes.auth import router as auth_router
 from app.routes.notes import router as notes_router
 
+from app.routes.search import router as search_router
+
 app = FastAPI()
 
 app.include_router(auth_router)
 app.include_router(notes_router)
-
+app.include_router(search_router)
 
 #  tl 1.
 @app.get("/")
